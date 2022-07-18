@@ -1,0 +1,126 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block main %}
+    <!--Search bar to search for events-->
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for events...">
+
+    <!--Menu with sortable tabs-->
+    <table id="myTable">
+    <tr class="header">
+        <th class = "headerclick" onclick="sortTable(0)" style="width:20%;">Event</th>
+        <th class = "headerclick" onclick="sortTable(1)" style="width:10%;">Date</th>
+        <th class = "headerclick" onclick="sortTable(2)" style="width:10%;">Time</th>
+        <th class = "headerclick" onclick="sortTable(3)" style="width:10%;">Price</th>
+        <th style="width:15%;">Payment</th>
+        <th class = "headerclick" id = "headerclick" onclick="sortTable(4)" style="width:15%;">Place</th>
+        <th style="width:10%;">Quantity</th>
+        <th style="width:20%">Buy</th>
+    </tr>
+    <!--Display relevant information for each event in each row-->
+    {% for item in items %}
+        <tr id="oneItem">
+            <form action="/" method="post">
+                <td name="event">{{ item["event"] }}</td>
+                <td name="date">{{ item["date"] }}</td>
+                <td name="time">{{ item["time"] }}</td>
+                <td name="price">{{ item["price"] }}</td>
+                <td name="payment">{{ item["payment"] }}</td>
+                <td name="location">{{ item["location"] }}</td>
+                <td name="quantity">{{ item["quantity"] }}</td>
+                <td>
+                    <input name="id" type="hidden" value="{{item.id}}">
+                    <input class="btn btn-primary" type="submit" value="Submit Offer">
+                </td>
+            </form>
+        </tr>
+    {% endfor %}
+    </table>
+    
+    <!--Only display relevant search results as users type into the search bar-->
+    <script>
+        function myFunction() {
+            // Declare variables
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+        
+            // Loop through all table rows, and show those who match the search query
+            var matchFound = false;
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        table.style.display = "table";
+                        tr[i].style.display = "";
+                        matchFound = true;
+                    } 
+                    else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+            if (!matchFound) {
+                table.style.display = "none";
+            }
+        }
+
+        function sortTable(n) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("myTable");
+        switching = true;
+        // Set the sorting direction to ascending:
+        dir = "asc";
+        /* Make a loop that will continue until no switching has been done: */
+        while (switching) {
+            // Start by saying: no switching is done:
+            switching = false;
+            rows = table.rows;
+            /* Loop through all table rows (except the
+            first, which contains table headers): */
+            for (i = 1; i < (rows.length - 1); i++) {
+            // Start by saying there should be no switching:
+            shouldSwitch = false;
+            /* Get the two elements you want to compare, one from current row and one from the next: */
+            x = rows[i].getElementsByTagName("TD")[n];
+            y = rows[i + 1].getElementsByTagName("TD")[n];
+            /* Check if the two rows should switch place, based on the direction, asc or desc: */
+            if (dir == "asc") {
+                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                // If so, mark as a switch and break the loop:
+                shouldSwitch = true;
+                break;
+                }
+            } else if (dir == "desc") {
+                if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                // If so, mark as a switch and break the loop:
+                shouldSwitch = true;
+                break;
+                }
+            }
+            }
+            if (shouldSwitch) {
+            /* If a switch has been marked, make the switch
+            and mark that a switch has been done: */
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+            // Each time a switch is done, increase this count by 1:
+            switchcount ++;
+            } else {
+            /* If no switching has been done AND the direction is "asc",
+            set the direction to "desc" and run the while loop again. */
+            if (switchcount == 0 && dir == "asc") {
+                dir = "desc";
+                switching = true;
+            }
+            }
+        }
+        }
+    </script>
+{% endblock %}

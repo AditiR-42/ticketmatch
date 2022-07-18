@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Sell
+{% endblock %}
+
+{% block main %}
+    <!--Sale form asks for details such as event, price, location, date, time, quantity, payment information, etc.-->
+    <form action="/sell" method="post">
+        <div class="mb-3">
+            <select class="form-select mx-auto w-auto" name="type">
+                <option disabled selected>Item Type</option>
+                    <option value="ticket">Ticket</option>
+                    <option value="ride">Ride</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <input autocomplete="off" class="form-control mx-auto w-auto" min="1" name="quantity" placeholder="Quantity" type="number" required>
+        </div>
+        <div class="mb-3">
+            <input autocomplete="off" class="form-control mx-auto w-auto" min="0" name="event" placeholder="Event Name" type="text" required>
+        </div>
+        <div class="mb-3">
+            <label for="date">Date:</label>
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="date" placeholder="Date" type="date" required>
+        </div>
+        <div class="mb-3">
+            <label for="time">Time:</label>
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="time" placeholder="Time" type="time">
+        </div>
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="location" placeholder="Location" type="text">
+        </div>
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="price" placeholder="Price" type="text" required>
+        </div>
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="payment" placeholder="Payment Info" type="text">
+        </div>
+        <button class="btn btn-primary" type="submit">Post Item</button>
+    </form>
+{% endblock %}

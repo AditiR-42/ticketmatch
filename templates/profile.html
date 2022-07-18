@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block main %}
+    <table id="myTable">
+        <!--Header for table of transactions-->
+        <tr class="header">
+            <th style="width:20%">{{ userinfo[0]["firstname"] + " " + userinfo[0]["lastname"]}}</th>
+            <th style="width:25%">Pending Transactions</th>
+            <th style="width:45%">Type</th>
+            <th style="width:10%">Actions</th>
+        </tr>
+        <!--Display information for each transaction-->
+        {% for transaction in transactions %}    
+            <tr id="oneItem">
+                <td>
+                    <br>
+                </td>
+                <td>
+                    {{ transaction["event"] }}
+                    <br>
+                </td>
+                <td>
+                    {{ transaction["type"]|upper }} {{ transaction["transaction_type"] }} (Price: {{ transaction["price"] }}) (Quantity: {{ transaction["quantity"] }}) 
+                    <br>
+                </td>
+                <td>
+                    <form action="/delete" method="post">
+                        <input name="id" type="hidden" value="{{transaction.id}}">
+                        <input class="btn btn-primary" type="submit" value="Delete">
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <script>
+        table = document.getElementById("myTable");
+        table.style.display = "table";
+    </script>
+{% endblock %}
