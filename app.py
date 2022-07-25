@@ -248,6 +248,7 @@ def sell():
         return render_template("sell.html")
 
 @app.route("/delete", methods=["POST"])
+@login_required
 def delete():
     # POST
     id = request.form.get("id")
@@ -262,7 +263,9 @@ def errorhandler(e):
         e = InternalServerError()
     return apology(e.name, e.code)
 
-
 # Listen for errors
 for code in default_exceptions:
     app.errorhandler(code)(errorhandler)
+
+if __name__ == '__main__':
+    app.run()
