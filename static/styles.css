@@ -11,7 +11,7 @@ nav .navbar-brand
 }
 
   #myInput {
-    background-image: url('Artboard\ 1Search.png'); /* Add a search icon to input */
+    background-image: url('Search.png'); /* Add a search icon to input */
     background-position: 10px 12px; /* Position the search icon */
     background-repeat: no-repeat; /* Do not repeat the icon image */
     width: 100%; /* Full-width */
@@ -22,7 +22,7 @@ nav .navbar-brand
   }
 
   #myTable th.headerclick {
-    background-image: url('Artboard\ 1arrows.png'); /* Add a search icon to input */
+    background-image: url('arrows.png'); /* Add a search icon to input */
     background-size: 15px;
     background-position: 70px 16px; /* Position the search icon */
     background-repeat: no-repeat; /* Do not repeat the icon image */
