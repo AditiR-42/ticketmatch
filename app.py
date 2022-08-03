@@ -1,6 +1,6 @@
 import os
-import psycopg2
 
+from cs50 import SQL
 from flask import Flask, flash, jsonify, redirect, render_template, request, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_session import Session
@@ -25,11 +25,8 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-SQLALCHEMY_DATABSE_URI = os.environ.get('DATABASE_URL')
-conn = psycopg2.connect(SQLALCHEMY_DATABSE_URI, sslmode='require')
-
 # Configure SQLite database
-db = SQLAlchemy(app)
+db = SQL("sqlite:///match.db")
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
