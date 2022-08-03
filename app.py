@@ -1,4 +1,4 @@
-from cs50 import SQL
+import sqlalchemy
 from flask import Flask, flash, jsonify, redirect, render_template, request, session
 from flask_session import Session
 from datetime import date
@@ -24,7 +24,7 @@ Session(app)
 
 
 # Configure SQLite database
-db = SQL("sqlite:///match.db")
+db = sqlalchemy("sqlite:///match.db")
 
 
 @app.route("/login", methods=["GET", "POST"])
