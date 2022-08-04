@@ -1,4 +1,4 @@
-App: ticket-match.herokuapp.com/
+[App Link] (ticket-match.herokuapp.com)
 
 Ticketmatch is my CS50 final project: an online marketplace where college students can resell/purchase event tickets and/or coordinate rideshares.
 
